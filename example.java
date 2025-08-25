@@ -65,7 +65,8 @@ println(getMax(MakeList(-1,-3))+"最大");
     println(sumPositiveInterval(3,5));
     println(repeat(2,"hellp"));
     println(pinjiezifu(MakeList("23","3")));
-  
+    println(lastTwo(MakeList(1,2,3,4,5)));
+    println(lastOneAsList(MakeList(1,2,3,4,5)));
 
 }
 // 求一个字符串的长度使用递归,注意第一个元素要取出来，不能直接递归跟剩下的元素，必须先提取出来因此是Lenth这个fava函数!
@@ -499,4 +500,26 @@ String repeat(int n,String str ){
 String pinjiezifu(ConsList<String>strs){
     if(IsEmpty(strs)){return "";}
     return Fold((String z,String zcc)->z+zcc,"",strs);
+}
+// 返回倒数两位数字组成的列表
+ConsList<Integer> lastTwo(ConsList<Integer> list) {
+    return switch (list) {
+        case Nil<Integer> _ -> new Nil<>(); // 空表返回空
+        case Cons<Integer>(var first, var rest) when IsEmpty(rest) ->
+            new Nil<>(); // 只有一个元素，也返回空
+        case Cons<Integer>(var first, var rest) when IsEmpty(Rest(rest)) ->
+            MakeList(first, First(rest)); // 刚好两个元素，直接返回
+        case Cons<Integer>(var first, var rest) ->
+            lastTwo(rest); // 否则递归向后找
+    };
+}
+// 打印最后一个元素
+ConsList<Integer> lastOneAsList(ConsList<Integer> list) {
+    return switch (list) {
+        case Nil<Integer> _ -> new Nil<>();
+        case Cons<Integer>(var first, var rest) when IsEmpty(rest) ->
+            MakeList(first); // 只剩一个元素，返回单元素列表
+        case Cons<Integer>(var first, var rest) ->
+            lastOneAsList(rest); // 继续递归
+    };
 }
