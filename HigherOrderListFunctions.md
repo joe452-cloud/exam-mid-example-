@@ -26,7 +26,7 @@ Your function's body should only contain a single `return` statement.
 Hint: the lambda expression `x->x*x` combined with a call to the `Map` higher-order function may help to solve this exercise
 
 Some tests for this exercise are as follows:
-
+ 
 ```java
 void testExercise1() {
     // [1]
